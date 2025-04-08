@@ -28,7 +28,7 @@ struct multipleCards: View {
             }
             .padding()
             .foregroundStyle(Gradient(colors: [.vibess,.wwww,.nott,.wwww,.vibess,.nott,.wwww,.nott,.wwww]))
-           
+            
             
             HStack {
                 Spacer()
@@ -71,12 +71,11 @@ struct cardView: View {
     var body: some View {
         ZStack {
             let rRect = RoundedRectangle(cornerRadius: 12)
-            // local var
             
             if isFlipped {
                 rRect
                     .foregroundStyle(Gradient(colors: [.nott,.wwww,.vibess,]))
-                    
+                
                 rRect
                     .strokeBorder(.red,lineWidth: 3)
                     .shadow(color: .red, radius: 7)
@@ -85,9 +84,7 @@ struct cardView: View {
                     .font(.largeTitle)
                     .shadow(color: .yellow, radius: 8)
                     .brightness(0.2)
-                
-                
-                
+       
             } else {
                 rRect
                     .fill(.regularMaterial.opacity(0.9))
