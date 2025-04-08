@@ -15,12 +15,14 @@ struct ContentView: View {
 
 
 struct multipleCards: View {
+    let emojis: [String] = ["🐻","🐼","🐨","🐶","🐷","🐸","🐹"]
     var body: some View {
         HStack {
-            cardView(isFlipped: true)
-            cardView()
-            cardView(isFlipped: true)
-            cardView()
+            ForEach(emojis.indices, id: \.self) { index in
+                cardView(content: emojis[index])
+            }
+            
+            
         }
         // perculates down
         .padding()
@@ -29,35 +31,39 @@ struct multipleCards: View {
 }
 
 struct cardView: View {
-    @State var isFlipped: Bool = false
+    let content: String
+    @State var isFlipped: Bool = true
     
     var body: some View {
         ZStack {
             let rRect = RoundedRectangle(cornerRadius: 12)
-            let dog = Text("🐺")               // local var
+            // local var
             
             if isFlipped {
                 rRect
                     .foregroundStyle(.red)
                 rRect
                     .strokeBorder(.red,lineWidth: 5)
-                    .shadow(color: .white, radius: 5)
-                    .brightness(0.7)
-                dog
+                    .shadow(color: .red, radius: 5)
+                    .brightness(Float64(0.9))
+                Text(content)
                     .font(.largeTitle)
-                    .shadow(color: .white, radius: 24)
-                    .brightness(0.4)
+                    .shadow(color: .white, radius: 2)
+                    .brightness(0.1)
+                
                 
                 
             } else {
                 rRect
-                    .fill(.bar.opacity(0.97))
+                    .fill(.regularMaterial.opacity(0.9))
                     .strokeBorder(lineWidth: 5)
-                    .shadow(color: .white, radius: 5)
-                
+                    .shadow(color: .white, radius: 2)
+                Text("⛄︎")
+                    .font(.largeTitle)
+                    .foregroundStyle(.white)
+                    .shadow(color: .red, radius: 4.0)
             }
         }
-        
         .onTapGesture {
             isFlipped.toggle()
             
