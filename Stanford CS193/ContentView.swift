@@ -15,20 +15,54 @@ struct ContentView: View {
 
 
 struct multipleCards: View {
-    let emojis: [String] = ["🐻","🐼","🐨","🐶","🐷","🐸","🐹"]
+    let emojis: [String] = ["🐻","🐼","🐨","🐶","🐷","🐸","🐹","🐺","🐻‍❄️"]
+    @State var cardCount: Int = 4
+    
+    
     var body: some View {
-        HStack {
-            ForEach(emojis.indices, id: \.self) { index in
-                cardView(content: emojis[index])
+        VStack {
+            HStack {
+                ForEach(0..<cardCount, id: \.self) { index in
+                    cardView(content: emojis [index])
+                }
             }
+            .padding()
+            .foregroundStyle(Gradient(colors: [.vibess,.wwww,.nott,.wwww,.vibess,.nott,.wwww,.nott,.wwww]))
+           
             
+            HStack {
+                Spacer()
+                Button(action: {
+                    if cardCount > 1 {
+                        cardCount -= 1
+                    }
+                }, label: {
+                    Image(systemName: "minus.square")
+                })
+                
+                Spacer()
+                Button(action: {
+                    if cardCount < emojis.count {
+                        cardCount += 1
+                    }
+                }, label: {
+                    Image(systemName: "plus.square")
+                })
+                Spacer()
+            }
+            .font(.largeTitle.bold())
+            .blendMode(.hardLight)
+            .foregroundStyle(Gradient(colors: [.nott,.wwww,.vibess,]))
+            .padding()
             
         }
-        // perculates down
-        .padding()
-        .foregroundColor(.red)
     }
 }
+
+
+
+
+
 
 struct cardView: View {
     let content: String
@@ -41,15 +75,16 @@ struct cardView: View {
             
             if isFlipped {
                 rRect
-                    .foregroundStyle(.red)
+                    .foregroundStyle(Gradient(colors: [.nott,.wwww,.vibess,]))
+                    
                 rRect
-                    .strokeBorder(.red,lineWidth: 5)
-                    .shadow(color: .red, radius: 5)
-                    .brightness(Float64(0.9))
+                    .strokeBorder(.red,lineWidth: 3)
+                    .shadow(color: .red, radius: 7)
+                    .brightness(Float64(0.8))
                 Text(content)
                     .font(.largeTitle)
-                    .shadow(color: .white, radius: 2)
-                    .brightness(0.1)
+                    .shadow(color: .yellow, radius: 8)
+                    .brightness(0.2)
                 
                 
                 
