@@ -16,23 +16,23 @@ struct ContentView: View {
 
 
 struct multipleCards: View {
-    let emojis: [String] = ["🐻","🐼","🐨","🐶","🐷","🐸","🐹","🐺","🐻‍❄️"]
-    @State var cardCount: Int = 4
+    let emojis: [String] = ["🐻","🐼","🐨","🐶","🐷","🐸","🐹","🐺","🐻‍❄️","🐴","🐮","🐭"]
+    // @State var cardCount: Int = 4
     
     var body: some View {
-        VStack {
-            ScrollView {
-                cardTiles
-            }
-            cardCountAdjusters
+        // VStack {
+        ScrollView {
+            cardTiles
+            // }
+            // cardCountAdjusters
         }
         .padding()
     }
     
     
     var cardTiles: some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]) {
-            ForEach(0..<cardCount, id: \.self) { index in
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 85))]) {
+            ForEach(emojis.indices, id: \.self) { index in
                 cardView(content: emojis [index])
                     .aspectRatio(2/3, contentMode: .fit)
             }
@@ -40,41 +40,43 @@ struct multipleCards: View {
         .padding()
         .foregroundStyle(Gradient(colors: [.vibess,.wwww,.nott,.wwww,.vibess,.nott,.wwww,.nott,.wwww]))
     }
-    var cardCountAdjusters: some View {
-        HStack {
-            Spacer()
-            cardRemover
-            Spacer()
-            cardAdder
-            Spacer()
-        }
-        .font(.largeTitle.bold())
-        .imageScale(.large)
-        .blendMode(.hardLight)
-        .foregroundStyle(Gradient(colors: [.vibess,.nott,.wwww,.vibess,]))
-    }
-    
-    func cardCountAdjuster(by offset: Int,symbol : String) -> some View {
-        Button(action: {
-            cardCount += offset
-        }, label: {
-            Image(systemName: symbol)
-        })
-        .disabled(cardCount + offset < 1 || cardCount + offset > emojis.count)
-    }
-    
-    var cardRemover: some View {
-        cardCountAdjuster(by: -1, symbol: "minus.square")
-    }
-    var cardAdder: some View {
-        cardCountAdjuster(by: +1, symbol: "plus.square")
-    }
 }
+/* var cardCountAdjusters: some View {
+ HStack {
+ Spacer()
+ cardRemover
+ Spacer()
+ cardAdder
+ Spacer()
+ }
+ .font(.largeTitle.bold())
+ .imageScale(.large)
+ .blendMode(.hardLight)
+ .foregroundStyle(Gradient(colors: [.vibess,.nott,.wwww,.vibess,]))
+ }
+ 
+ func cardCountAdjuster(by offset: Int,symbol : String) -> some View {
+ Button(action: {
+ cardCount += offset
+ }, label: {
+ Image(systemName: symbol)
+ })
+ .disabled(cardCount + offset < 1 || cardCount + offset > emojis.count)
+ }
+ 
+ var cardRemover: some View {
+ cardCountAdjuster(by: -1, symbol: "minus.square")
+ }
+ var cardAdder: some View {
+ cardCountAdjuster(by: +1, symbol: "plus.square")
+ 
+ }
+ }*/
 
 
 struct cardView: View {
     let content: String
-    @State var isFlipped: Bool = true
+    @State var isFlipped: Bool = false
     
     var body: some View {
         ZStack {
