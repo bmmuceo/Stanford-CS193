@@ -16,18 +16,20 @@ struct ContentView: View {
 
 
 struct multipleCards: View {
+    var viewModel: EmojiMemoryGame
     let emojis: [String] = ["🐻","🐼","🐨","🐶","🐷","🐸","🐹","🐺","🐻‍❄️","🐴","🐮","🐭"]
-    // @State var cardCount: Int = 4
+                                        // @State var cardCount: Int = 4
     
     var body: some View {
-        // VStack {
+                                        // VStack {
         ScrollView {
             cardTiles
-            // }
-            // cardCountAdjusters
+                                        // }
+                                        // cardCountAdjusters
         }
         .padding()
     }
+    
     
     
     var cardTiles: some View {
