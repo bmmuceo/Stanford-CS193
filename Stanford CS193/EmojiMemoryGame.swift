@@ -5,26 +5,36 @@
 //  Created by RyanA on 4/8/25.
 //
 
-// Class is the view model & Memorygame.swift is the View model
 
 import SwiftUI
 
-func createCardContent(forPairAtIndex index: Int) -> String {
-    return["🐻","🐼","🐨","🐶","🐷","🐸","🐹","🐺","🐻‍❄️","🐴","🐮","🐭"][index]
-}
+
 
 class EmojiMemoryGame {
+    private static let emojis = ["🐻","🐼","🐨","🐶","🐷","🐸","🐻","🐼","🐨","🐶","🐷","🐸"]
     
-    private var model = MemoryGame(numberOfPairs: 4){ index in
-            return ["🐻","🐼","🐨","🐶","🐷","🐸","🐹","🐺","🐻‍❄️","🐴","🐮","🐭"][index]
+    private static func createMemoryGame() -> MemoryGame<String> {
+        return MemoryGame(numberOfPairsOfCards: 12) { pairIndex in
+            if emojis.indices.contains(pairIndex) {
+                return emojis[pairIndex]
+            } else {
+                return "Opps!💩"
+            }
         }
+    }
+    
+    private var model = createMemoryGame()
     
     var cards: Array<MemoryGame<String>.Card> {
         return model.cards
+    }
+    func shuffle() {
+        model.shuffle()
     }
     
     func choose(_ card: MemoryGame<String>.Card) {
         model.choose(card)
     }
 }
+
 
