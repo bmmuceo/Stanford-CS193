@@ -8,11 +8,11 @@
 
 import SwiftUI
 
+class EmojiMemoryGame: ObservableObject {
+    private static let emojis = [
+        "🐻", "🐼", "🐨", "🐶", "🐷", "🐸", "🐻", "🐼", "🐨", "🐶", "🐷", "🐸",
+    ]
 
-
-class EmojiMemoryGame {
-    private static let emojis = ["🐻","🐼","🐨","🐶","🐷","🐸","🐻","🐼","🐨","🐶","🐷","🐸"]
-    
     private static func createMemoryGame() -> MemoryGame<String> {
         return MemoryGame(numberOfPairsOfCards: 12) { pairIndex in
             if emojis.indices.contains(pairIndex) {
@@ -22,19 +22,26 @@ class EmojiMemoryGame {
             }
         }
     }
-    
-    private var model = createMemoryGame()
-    
-    var cards: Array<MemoryGame<String>.Card> {
+
+    @Published private var model = createMemoryGame()
+
+    var cards: [MemoryGame<String>.Card] {
         return model.cards
     }
+
+    //MARK: - Intents
     func shuffle() {
         model.shuffle()
+
     }
-    
+
     func choose(_ card: MemoryGame<String>.Card) {
         model.choose(card)
     }
+
 }
+
+//  EmojiMemoryGame.swift
+
 
 
