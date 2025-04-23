@@ -5,32 +5,39 @@
 //  Created by RyanA on 4/8/25.
 //
 
-import Foundation         // This is the model
+import SwiftUI
 
-struct MemoryGame<CardContent> {
-    private(set) var cards: Array<Card>
-    
-    init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
-        cards = []
-        for pairIndex in 0..<max(2, numberOfPairsOfCards) {
-            let content = cardContentFactory(pairIndex)
-            cards.append(Card(content: content))
-            cards.append(Card(content: content))
-            
+class EmojiMemoryGame: ObservableObject {
+    private static let emojis = [
+        "🐻", "🐼", "🐨", "🐶", "🐷", "🐸", "🐻", "🐼", "🐨", "🐶", "🐷", "🐸",
+    ]
+
+    private static func createMemoryGame() -> MemoryGame<String> {
+        return MemoryGame(numberOfPairsOfCards: 12) { pairIndex in
+            if emojis.indices.contains(pairIndex) {
+                return emojis[pairIndex]
+            } else {
+                return "Opps!💩"
+            }
         }
     }
-    
-    func choose (_ card: Card) {
-        
+
+    @Published private var model = createMemoryGame()
+
+    var cards: [MemoryGame<String>.Card] {
+        return model.cards
     }
-    mutating func shuffle() {
-        cards.shuffle()
+
+    //MARK: - Intents
+    func shuffle() {
+        model.shuffle()
+
     }
-    
-    struct Card {
-        var isFaceUp = false
-        var isMatched = false
-        let content: CardContent
+
+    func choose(_ card: MemoryGame<String>.Card) {
+        model.choose(card)
     }
+
 }
 
+//  EmojiMemoryGame.swift
